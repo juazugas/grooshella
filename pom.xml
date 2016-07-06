@@ -21,6 +21,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
+
+		<groovy-all.version>2.4.7</groovy-all.version>
 	</properties>
 
 	<dependencies>
@@ -79,6 +81,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all -->
+		<dependency>
+		    <groupId>org.codehaus.groovy</groupId>
+		    <artifactId>groovy-all</artifactId>
+		    <version>${groovy-all.version}</version>
 		</dependency>
 	</dependencies>
 	
