@@ -8,8 +8,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.joda.time.DateTime;
+import org.springframework.util.StringUtils;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ import com.defimak47.grooshella.services.console.web.SystemOutputInterceptorClos
 @Service(GroovyScriptService.NAME)
 public class GroovyScriptServiceImpl implements GroovyScriptService, ApplicationContextAware {
 
+    private static final String ISO_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+
     /**
      * Spring application context.
      */
@@ -49,7 +52,7 @@ public class GroovyScriptServiceImpl implements GroovyScriptService, Application
     if (LOGGER.isInfoEnabled()) {
           LOGGER.info("Executing Script: " + script);
     }
-        if (StringUtils.isBlank(script)) {
+        if (StringUtils.isEmpty(script)) {
             return null;
         }
         return eval(script);
@@ -72,7 +75,7 @@ public class GroovyScriptServiceImpl implements GroovyScriptService, Application
     protected Map<String,Object> eval(String script) {
         Map<String,Object> resultMap = new HashMap<>();
         resultMap.put("script", script);
-        resultMap.put("startTime", DateTime.now().toString());
+        resultMap.put("startTime", getNowDt());
 
         // Capture output and error console 
         SystemOutputInterceptorClosure outputCollector = new SystemOutputInterceptorClosure(null);
@@ -94,7 +97,7 @@ public class GroovyScriptServiceImpl implements GroovyScriptService, Application
         }
 
         resultMap.put("output", outputCollector.getStringBuffer().trim());
-        resultMap.put("endTime", DateTime.now().toString());
+        resultMap.put("endTime", getNowDt());
         return resultMap;
     }
 
@@ -128,4 +131,12 @@ public class GroovyScriptServiceImpl implements GroovyScriptService, Application
         return new GroovyShell(Thread.currentThread().getContextClassLoader(), new Binding(bindingValues));
     }
 
+
+    /**
+     * Gets the date time formated.
+     */
+    private String getNowDt () {
+        SimpleDateFormat df = new SimpleDateFormat(ISO_DATE_FORMAT);
+        return df.format(new Date());
+    }
 }
