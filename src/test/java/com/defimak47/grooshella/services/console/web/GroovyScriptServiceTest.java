@@ -1,6 +1,9 @@
 package com.defimak47.grooshella.services.console.web;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+// import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.Matchers.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,8 +33,16 @@ public class GroovyScriptServiceTest {
 
         _expect: {
             assertNotNull(result);
+            assertThat(result, notNullValue());
+            assertThat(result, allOf(
+                                not(hasKey("error")),
+                                hasKey("startTime"),
+                                hasKey("endTime"),
+                                hasKey("result"),
+                                hasKey("output"))
+                );
+            assertThat(result, hasEntry(equalTo("output"), anything("hello world!")));
         }
-    
     }
 
 }
