@@ -1,4 +1,4 @@
-package com.defimak47.grooshella.services.web;
+package com.defimak47.grooshella.web;
 
 import groovy.json.StringEscapeUtils;
 
