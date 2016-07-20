@@ -18,21 +18,36 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+/**
+ * Test class for request made to home controller.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class HomeControllerTest {
 
-    
+    /** MVC request performer.
+     */
     private MockMvc mockMvc;
 
+    /**
+     * Spring application context.
+     */
     @Autowired
     private ApplicationContext applicationContext;
 
+    /**
+     * Prepare webapp context for run the tests.
+     */
     @Before
     public void setUp () throws Exception {
         mockMvc = MockMvcBuilders.webAppContextSetup((WebApplicationContext) applicationContext).build();
     }
 
+    /**
+     * Test the template caller.
+     *
+     * @see HomeController#page(String)
+     */
     @Test
     public void testPage () {
         ResultActions result = null;
@@ -50,7 +65,6 @@ public class HomeControllerTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
-
     }
 
 }
