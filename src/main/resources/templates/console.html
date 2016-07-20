@@ -4,17 +4,32 @@
 	<meta charset="UTF-8"/>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<title>Grooshella: Groovy shell application</title>
+
+  <script type="text/javascript" th:src="@{/bower_components/jquery/dist/jquery.min.js}" 
+          src="/bower_components/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
   <h1>Grooshella console</h1>
-  <form action="/console/script" method="POST" target="result">
+  <form name="console" id="console" action="/console/script" method="POST">
   	<div>
-  		<textarea id="script" name="script" rows="30" cols="60"></textarea>
+      <textarea id="script" name="script" rows="10" cols="60"></textarea><br/>
   		<input type="submit" />
   	</div>
   </form>
-  <div>
-    <iframe border="0" name="result"></iframe>
+  <div id="output"> 
   </div>
+  <script type="text/javascript">
+  $(function() {
+    $("#console").on("submit", function () {
+      var params = {};
+      params.script = $("#script").val();
+      $.post(this.action, params,
+             function(data) {
+               $("#output").text(JSON.stringify(data));
+             });
+      return false;
+    });
+  });
+  </script>
 </body>
 </html>
