@@ -1,26 +1,22 @@
 package com.defimak47.grooshella.services.console.web.impl;
 
+import com.defimak47.grooshella.services.console.web.GroovyScriptService;
+import com.defimak47.grooshella.services.console.web.SystemOutputInterceptorClosure;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import groovy.ui.SystemOutputInterceptor;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.util.StringUtils;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
-import com.defimak47.grooshella.services.console.web.GroovyScriptService;
-import com.defimak47.grooshella.services.console.web.SystemOutputInterceptorClosure;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Service implementation for running groovy scripts.

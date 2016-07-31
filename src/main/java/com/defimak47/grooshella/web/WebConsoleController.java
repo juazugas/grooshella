@@ -1,23 +1,17 @@
 package com.defimak47.grooshella.web;
 
-import groovy.json.StringEscapeUtils;
-
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.defimak47.grooshella.services.console.web.GroovyScriptService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.defimak47.grooshella.services.console.web.GroovyScriptService;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * Controller for manage the Groovy Web console
