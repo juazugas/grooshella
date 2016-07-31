@@ -20,9 +20,8 @@ import java.util.Map;
 
 /**
  * Service implementation for running groovy scripts.
- *
+ * <p>
  * Adds to the execution context : Spring application context and the logger.
- *
  */
 @Service(GroovyScriptService.NAME)
 public class GroovyScriptServiceImpl implements GroovyScriptService, ApplicationContextAware {
@@ -44,10 +43,10 @@ public class GroovyScriptServiceImpl implements GroovyScriptService, Application
      * {@inheritDoc}
      */
     @Override
-    public Map<String,Object> executeScript (String script) {
-    if (LOGGER.isInfoEnabled()) {
-          LOGGER.info("Executing Script: " + script);
-    }
+    public Map<String, Object> executeScript(String script) {
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Executing Script: " + script);
+        }
         if (StringUtils.isEmpty(script)) {
             return null;
         }
@@ -63,13 +62,13 @@ public class GroovyScriptServiceImpl implements GroovyScriptService, Application
     }
 
     /**
-   * Script evaluation passed to the Groovy interpreter.
+     * Script evaluation passed to the Groovy interpreter.
      *
      * @param script the groovy script.
      * @return the map with the results.
      */
-    protected Map<String,Object> eval(String script) {
-        Map<String,Object> resultMap = new HashMap<>();
+    protected Map<String, Object> eval(String script) {
+        Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("script", script);
         resultMap.put("startTime", getNowDt());
 
@@ -101,7 +100,7 @@ public class GroovyScriptServiceImpl implements GroovyScriptService, Application
     /**
      * Call Groovyshell interpreter.
      *
-     * @param script the groovy script.
+     * @param script        the groovy script.
      * @param bindingValues binding variables to the execution context.
      * @return Scripting result.
      */
@@ -110,7 +109,7 @@ public class GroovyScriptServiceImpl implements GroovyScriptService, Application
         Object result = shell.evaluate(script);
         String resultString = result == null ? "null" : result.toString();
         if (LOGGER.isDebugEnabled()) {
-          LOGGER.debug("GroovyScriptServiceImpl", "eval result: " + resultString);
+            LOGGER.debug("GroovyScriptServiceImpl", "eval result: " + resultString);
         }
         return resultString;
     }
@@ -131,7 +130,7 @@ public class GroovyScriptServiceImpl implements GroovyScriptService, Application
     /**
      * Gets the date time formated.
      */
-    private String getNowDt () {
+    private String getNowDt() {
         SimpleDateFormat df = new SimpleDateFormat(ISO_DATE_FORMAT);
         return df.format(new Date());
     }

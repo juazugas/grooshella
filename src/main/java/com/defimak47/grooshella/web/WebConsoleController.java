@@ -17,10 +17,9 @@ import java.util.Map;
  * Controller for manage the Groovy Web console
  *
  * @author jzuriaga
- *
  */
 @Controller
-@RequestMapping(value="/console")
+@RequestMapping(value = "/console")
 public class WebConsoleController {
 
     /**
@@ -36,20 +35,20 @@ public class WebConsoleController {
 
     /**
      * Web method to run the groovy script.
-     *
+     * <p>
      * NOTE. It needs a valid user.
      *
      * @param request Web request object.
-     * @param script the groovy script.
+     * @param script  the groovy script.
      * @return JSON object with the response.
      */
-    @RequestMapping(value="/script")
+    @RequestMapping(value = "/script")
     @PreAuthorize("hasRole('ROLE_USER')")
     @ResponseBody
-    public Map<String, Object> groovyConsole (HttpServletRequest request,
-                                              @RequestParam(value="script", required=true) String script) {
+    public Map<String, Object> groovyConsole(HttpServletRequest request,
+                                             @RequestParam(value = "script", required = true) String script) {
         if (LOGGER.isDebugEnabled()) {
-          LOGGER.debug("WebConsoleController", "entering to groovyConsole "+request);
+            LOGGER.debug("WebConsoleController", "entering to groovyConsole " + request);
         }
 
         return groovyScriptService.executeScript(script);

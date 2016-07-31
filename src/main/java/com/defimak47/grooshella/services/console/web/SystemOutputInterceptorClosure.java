@@ -4,7 +4,6 @@ import groovy.lang.Closure;
 
 /**
  * Interceptor that captures execution output console from the grovy script.
- *
  */
 public final class SystemOutputInterceptorClosure extends Closure<Boolean> {
 
@@ -17,49 +16,49 @@ public final class SystemOutputInterceptorClosure extends Closure<Boolean> {
 
     /**
      * Interceptor constructor.
-     * 
+     *
      * @param owner the owner of the interceptor.
      */
-    public SystemOutputInterceptorClosure( Object owner ) {
-    	super( owner ) ;
+    public SystemOutputInterceptorClosure(Object owner) {
+        super(owner);
     }
 
     /**
      * Add parameters to the operation buffer.
-     * 
+     *
      * @param params Capture the standard output.
      * @return boolean result.
      */
     @Override
-    public Boolean call( Object params ) {
-    	stringBuilder.append(String.valueOf(params));
-    	return false;
+    public Boolean call(Object params) {
+        stringBuilder.append(String.valueOf(params));
+        return false;
     }
 
     /**
      * Add the parameter to the output buffer.
-     * 
+     *
      * @param args Array of standard output messages.
      * @return boolean result.
      */
     @Override
     public Boolean call(Object... args) {
-    	for (Object arg: args) {
-    		stringBuilder.append(String.valueOf(arg));
-    	}
-    	return false;
+        for (Object arg : args) {
+            stringBuilder.append(String.valueOf(arg));
+        }
+        return false;
     }
 
     /**
      * Gets the buffer where it's captured the System.out printing.
-     * 
+     * <p>
      * Init the buffer once the content its mapped.
-     * 
+     *
      * @return String with the output content.
      */
     public String getStringBuffer() {
-    	String result = this.stringBuilder.toString();
-    	this.stringBuilder.setLength(0);
-    	return result;
+        String result = this.stringBuilder.toString();
+        this.stringBuilder.setLength(0);
+        return result;
     }
 }
