@@ -1,3 +1,0 @@
-#!/bin/bash
-cd $OPENSHIFT_REPO_DIR
-nohup java -war target/*.jar --server.port=${OPENSHIFT_DIY_PORT} --server.address=${OPENSHIFT_DIY_IP} &
