@@ -23,3 +23,12 @@ target/
 
 *ipr
 *iws
+
+
+# Eclipse project resources.
+#
+.classpath
+.project
+.settings/
+.tern-project
+
