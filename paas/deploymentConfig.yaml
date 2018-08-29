@@ -1,0 +1,121 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  creationTimestamp: '2018-08-29T10:36:26Z'
+  generation: 20
+  labels:
+    app: grooshella
+  name: grooshella
+  namespace: rhie-prototype
+  resourceVersion: '236470'
+  selfLink: >-
+    /apis/apps.openshift.io/v1/namespaces/rhie-prototype/deploymentconfigs/grooshella
+  uid: 619bd3ee-ab77-11e8-8d9a-507b9def37cd
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    app: grooshella
+    deploymentconfig: grooshella
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+      creationTimestamp: null
+      labels:
+        app: grooshella
+        deploymentconfig: grooshella
+    spec:
+      containers:
+        - env:
+            - name: SPRING_APPLICATION_JSON_NO
+              valueFrom:
+                configMapKeyRef:
+                  key: application.json
+                  name: grooshella-config-props
+            - name: SECURITY_USER_PASSWORD
+              value: developer
+          image: '172.30.1.1:5000/rhie-prototype/grooshella:latest'
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: 8080
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: grooshella
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: 8080
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /deployments/config
+              name: application-config
+              readOnly: true
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - configMap:
+            defaultMode: 420
+            items:
+              - key: application.properties
+                path: application.properties
+            name: grooshella-config-props
+          name: application-config
+  test: false
+  triggers:
+    - type: ConfigChange
+status:
+  availableReplicas: 1
+  conditions:
+    - lastTransitionTime: '2018-08-29T11:43:08Z'
+      lastUpdateTime: '2018-08-29T11:43:08Z'
+      message: Deployment config has minimum availability.
+      status: 'True'
+      type: Available
+    - lastTransitionTime: '2018-08-29T12:04:28Z'
+      lastUpdateTime: '2018-08-29T12:04:31Z'
+      message: replication controller "grooshella-17" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: 'True'
+      type: Progressing
+  details:
+    causes:
+      - type: ConfigChange
+    message: config change
+  latestVersion: 17
+  observedGeneration: 20
+  readyReplicas: 1
+  replicas: 1
+  unavailableReplicas: 0
+  updatedReplicas: 1
+
