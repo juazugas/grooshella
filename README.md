@@ -21,4 +21,8 @@ docker build -t grooshella/grooshella:0.1.0 -t 172.30.1.1:5000/<project>/grooshe
 docker push 172.30.1.1:5000/rhie-prototype/grooshella:latest
 oc new-app --docker-image=172.30.1.1:5000/rhie-prototype/grooshella:latest 
 
+# Then add readiness and liveness probes to /health on port 8080.
 
+oc expose svc/grooshella
+
+```
