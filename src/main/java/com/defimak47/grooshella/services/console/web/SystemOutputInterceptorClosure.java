@@ -1,5 +1,6 @@
 package com.defimak47.grooshella.services.console.web;
 
+import java.util.Arrays;
 import groovy.lang.Closure;
 
 /**
@@ -42,9 +43,11 @@ public final class SystemOutputInterceptorClosure extends Closure<Boolean> {
      * @return boolean result.
      */
     @Override
-    public Boolean call(Object... args) {
-        for (Object arg : args) {
-            stringBuilder.append(String.valueOf(arg));
+    public Boolean call (Object... args) {
+        if (null != args && 2 == args.length) {
+            stringBuilder.append(String.valueOf(args[1]));
+        } else {
+            stringBuilder.append(Arrays.toString(args));
         }
         return false;
     }
