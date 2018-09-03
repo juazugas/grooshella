@@ -3,15 +3,13 @@ package com.defimak47.grooshella.web;
 import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
@@ -100,7 +98,7 @@ public class WebConsoleControllerTest {
                   .andExpect(jsonPath("$['endTime']").exists())
                   .andExpect(jsonPath("$['error']").doesNotExist())
                   .andExpect(jsonPath("$['result']").exists())
-                  .andExpect(jsonPath("$['output']").value("0hello0"));
+                    .andExpect(jsonPath("$['output']").value("hello"));
         } catch (Exception e) {
             fail(e.getMessage());
         }

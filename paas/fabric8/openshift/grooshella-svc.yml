@@ -1,0 +1,29 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    fabric8.io/git-commit: ec88fb5b62520b1446f77a8671574326bdda0293
+    prometheus.io/port: "9779"
+    fabric8.io/scm-url: https://github.com/spring-projects/spring-boot/spring-boot-starter-parent/grooshella
+    fabric8.io/iconUrl: img/icons/spring-boot.svg
+    fabric8.io/git-branch: feature/fabric8-deployment
+    prometheus.io/scrape: "true"
+    fabric8.io/scm-tag: HEAD
+  labels:
+    expose: "true"
+    app: grooshella
+    provider: fabric8
+    version: 0.1.0-SNAPSHOT
+    group: com.defimak47
+  name: grooshella
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: grooshella
+    provider: fabric8
+    group: com.defimak47
