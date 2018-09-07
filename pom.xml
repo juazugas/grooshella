@@ -5,8 +5,8 @@
 
 	<groupId>com.defimak47</groupId>
 	<artifactId>grooshella</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<version>0.2.0-SNAPSHOT</version>
+	<packaging>war</packaging>
 
 	<name>grooshella</name>
 	<description>Demo project for Spring Boot</description>
@@ -25,7 +25,7 @@
 		<groovy-all.version>2.4.8</groovy-all.version>
         <!-- hawt.io version -->
         <hawtio.version>1.5.0</hawtio.version>
-        
+
         <!-- JBoss dependency versions -->
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
@@ -117,7 +117,7 @@
 		    <version>${groovy-all.version}</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<finalName>${project.artifactId}-${project.version}</finalName>
 		<plugins>
@@ -129,10 +129,47 @@
 				<groupId>io.fabric8</groupId>
 				<artifactId>fabric8-maven-plugin</artifactId>
 				<version>3.5.40</version>
+				<executions>
+          <execution>
+            <id>fmp</id>
+            <goals>
+              <goal>resource</goal>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+					<buildRecreate>none</buildRecreate>
+					<generator>
+						<includes>
+							<include>spring-boot</include>
+						</includes>
+						<config>
+							<spring-boot>
+								<alias>grooshella</alias>
+							</spring-boot>
+						</config>
+					</generator>
+          <!--
+          <authConfig>
+            <push>
+              <userOpenShiftAuth/>
+              <username>serviceaccount</username>
+              <password>${docker.push}</password>
+            </push>
+          </authConfig>
+            -->
+          <resources>
+            <env>
+              <JAVA_APP_JAR>${project.artifactId}-${project.version}.${project.packaging}</JAVA_APP_JAR>
+            </env>
+          </resources>
+        </configuration>
+
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<pluginRepositories>
 		<pluginRepository>
 			<id>spring-snapshots</id>
@@ -151,12 +188,12 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-	
+
 	 <profiles>
         <profile>
-            <!-- The default profile skips all tests, though you can tune it to run 
+            <!-- The default profile skips all tests, though you can tune it to run
                 just unit tests based on a custom pattern -->
-            <!-- Seperate profiles are provided for running all tests, including Arquillian 
+            <!-- Seperate profiles are provided for running all tests, including Arquillian
                 tests that execute in the specified container -->
             <id>default</id>
             <activation>
@@ -175,29 +212,7 @@
             </build>
         </profile>
 
-        <profile>
-            <!-- When built in OpenShift the 'openshift' profile will be used when 
-                invoking mvn. -->
-            <!-- Use this profile for any OpenShift specific customization your app 
-                will need. -->
-            <!-- By default that is to put the resulting archive into the 'deployments' 
-                folder. -->
-            <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
-            <id>openshift</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <configuration>
-                            <outputDirectory>deployments</outputDirectory>
-                            <warName>ROOT</warName>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
     </profiles>
-	
+
 
 </project>

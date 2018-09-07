@@ -19,6 +19,16 @@ public class HomeController {
      *
      * @param template The html resource.
      */
+    @RequestMapping(value = { "/", "/index" })
+    public String page() {
+        return "index";
+    }
+
+    /**
+     * Serve Thymeleaf static resource templates.
+     *
+     * @param template The html resource.
+     */
     @RequestMapping(value = "/{template}.html")
     public String page(@PathVariable String template) {
         return template;
